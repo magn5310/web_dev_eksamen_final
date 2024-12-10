@@ -27,7 +27,7 @@
     }).addTo(map);
 
     // Fetch restaurant data from backend and add markers to the map
-    fetch('http://127.0.0.1:80/fetch-restaurants') // Ensure this URL matches your backend
+    fetch('https://magnus00.pythonanywhere.com:80/fetch-restaurants') // Ensure this URL matches your backend
         .then(response => {
             if (!response.ok) {
                 throw new Error("Network response was not ok " + response.statusText);
