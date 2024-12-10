@@ -1,0 +1,13 @@
+{% include "_top.html" %}
+
+<h2>Restaurants</h2>
+{% for restaurant in restaurants %}
+    <p>{{restaurant.restaurant_info_restaurant_name}}</p>
+{% endfor %}
+
+<h2>Dishes</h2>
+{% for item in items %}
+    <p>{{item.item_title}}</p>
+{% endfor %}
+
+{% include "_bottom.html" %}

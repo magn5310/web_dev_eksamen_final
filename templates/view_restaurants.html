@@ -1,0 +1,51 @@
+{% include "_top.html" %}
+
+<main class="w-full px-5">
+
+<section class="d-flex j-content-center gap-5 mt-15">
+    <a href="/explore" class="text-c-black px-2 py-1"><svg class="v-align-middle" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" width="25px" height="25px" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>explore</title> <g id="Layer_2" data-name="Layer 2"> <g id="invisible_box" data-name="invisible box"> <rect width="48" height="48" fill="none"></rect> </g> <g id="icons_Q2" data-name="icons Q2"> <path d="M24,6A18,18,0,1,1,6,24,18.1,18.1,0,0,1,24,6m0-4A22,22,0,1,0,46,24,21.9,21.9,0,0,0,24,2Z"></path> <path d="M33.3,13.3,20,20,13.3,33.3a1.1,1.1,0,0,0,1.4,1.4L28,28l6.7-13.3A1.1,1.1,0,0,0,33.3,13.3ZM24,26a2,2,0,1,1,2-2A2,2,0,0,1,24,26Z"></path> </g> </g> </g></svg> Explore</a>
+    <a href="/restaurants" class="bg-c-blue:+1 text-c-white rounded-12 px-2 py-1"><svg class="v-align-middle" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" viewBox="0 0 512 512" xml:space="preserve" fill="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <style type="text/css">  .st0{fill:#fff;}  </style> <g> <path class="st0" d="M207.103,23.875v109.219c0,7-5.656,12.641-12.625,12.641h-3.375c-6.969,0-12.641-5.641-12.641-12.641V23.375 c0-18-12.109-23.375-23.719-23.375s-23.719,5.375-23.719,23.375v109.719c0,7-5.672,12.641-12.641,12.641h-3.375 c-6.969,0-12.625-5.641-12.625-12.641V23.875c0-32.219-45.938-31.125-45.938,0.359c0,37.703,0,104.297,0,104.297 c-0.219,57.906,13.625,72.953,36.469,91c18.422,14.531,34.156,22.859,34.156,58.953v232.188h55.344V278.484 c0-36.094,15.734-44.422,34.156-58.953c22.859-18.047,36.688-33.094,36.469-91c0,0,0-66.594,0-104.297 C253.04-7.25,207.103-8.344,207.103,23.875z"></path> <path class="st0" d="M385.228,34.75c-11.75,32.953-45.578,110.156-47.719,178.344c-3.313,105.844,61.547,90.188,62.703,159.531 v138.688h55.078l0.266,0.688c0,0,0-0.281,0-0.688c0-9.266,0-119.625,0-232.203c0-111.359,0-224.797,0-244.359 C455.556-5.438,403.524-16.531,385.228,34.75z"></path> </g> </g></svg> Restaurants</a>
+</section>
+
+
+<section class="my-15">
+    
+        <h2>Categories</h2>
+    
+        <ul class="d-flex gap-x-5 list-style-none mb-20">
+            {% for category in food_categories %}
+    
+            <a href="/restaurant/{{category.food_category_pk}}" class="w-full h-40">
+                <div class="d-grid h-40 rows-1 cols-1 j-content-center p-relative rounded-5 ts-200"
+                    hover="shadow-md scale-102">
+                    <img src="{{ url_for('static', filename='categories/' + category.food_category_name + '.webp') }}"
+                        class="w-full h-40 obj-f-cover c-start-1 c-end-1 r-start-1 r-end-1 z-1 rounded-5"
+                        alt="image of {{category.food_category_name}}">
+                    <div class="h-40 w-full p-absolute bg-c-black bg-alpha-40 z-50 rounded-5"></div>
+                    <p
+                        class="c-start-1 c-end-1 r-start-1 r-end-1 j-self-center a-self-center text-c-white text-w-black z-100 text-xl">
+                        {{category.food_category_name}}</p>
+                </div>
+            </a>
+    
+    
+            {% endfor %}
+        </ul>
+        <h2>Restaurants</h2>
+    
+        <ul class="d-grid cols-12 gap-x-5 gap-y-15 list-style-none mb-20">
+            {% for restaurant in restaurant_users %}
+            <a href="/{{restaurant.restaurant_info_user_fk}}/items" class="w-full h-full col-4">
+                <div class="shadow-xs w-full h-full rounded-2 ts-200" hover="shadow-md scale-102">
+                    <img src="{{ url_for('static', filename='dishes/'+restaurant.restaurant_info_restaurant_image) }}"
+                        class="w-full h-40 obj-f-cover rounded-2" alt="">
+                    <p>{{restaurant.restaurant_info_restaurant_name}}</p>
+                </div>
+            </a>
+            {% endfor %}
+        </ul>
+</section>
+</main>
+
+
+{% include "_bottom.html" %}

@@ -1,0 +1,55 @@
+<script src="{{url_for('static', filename='app.js')}}"></script>
+<script src="{{url_for('static', filename='mixhtml.js')}}"></script>
+
+<script>
+    mojo({
+        patterns: {
+            "input": {
+                idle: "border border-1 border-c-gray:+25 px-2 rounded-4 h-12 outline-none"
+            },
+            "button": {
+                idle: "border-c-black px-4 rounded-sm h-12 outline-none"
+            }
+        },
+    })
+</script>
+
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    // Initialize the map
+    var map = L.map('map').setView([55.6845, 12.564148], 12);
+
+    // Add OpenStreetMap tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 20,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Fetch restaurant data from backend and add markers to the map
+    fetch('http://127.0.0.1:80/fetch-restaurants') // Ensure this URL matches your backend
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok " + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            data.forEach(restaurant => {
+                var marker = L.marker([restaurant.restaurant_info_latitude, restaurant.restaurant_info_longitude]).addTo(map);
+                marker.bindPopup(`<a href="/${restaurant.restaurant_info_user_fk}/items">
+                    <div>
+                        <p>${restaurant.restaurant_info_restaurant_name}</p>
+                        <img class="w-20 h-20" src="../static/dishes/${restaurant.restaurant_info_restaurant_image}" alt="${restaurant.restaurant_info_restaurant_name}">
+                    </div>
+                    </a>`);
+            });
+        })
+        .catch(error => {
+            console.error("There was a problem with the fetch operation:", error);
+        });
+</script>
+
+</body>
+
+</html>

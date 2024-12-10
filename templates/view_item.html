@@ -1,0 +1,21 @@
+{% include "_top.html" %}
+
+<main class="w-full px-5">
+<div class="d-grid cols-2">
+    <img src="{{ url_for('static', filename='dishes/' + dish_item.item_image) }}" class="w-full h-100 obj-f-cover" alt="">
+    <div class="d-grid j-content-center a-items-end">
+        <div>
+            <h1>{{dish_item.item_title}}</h1>
+            <h3>${{dish_item.item_price}}</h3>
+        </div>
+        {% if user %}
+      <button class="cursor-pointer bg-c-blue:+1 pa-2 rounded-3 text-c-blue:+40 text-w-semibold" mix-post="/set-item-cookie/{{dish_item.item_pk}}" mix-data="#cart">BUY</button>
+        {% else %}
+        <a href="/login" class="cursor-pointer bg-c-blue:+1 pa-2 rounded-3 text-c-blue:+40 text-w-semibold">Login to buy</a>
+        {% endif %}
+    </div>
+</div>
+</main>
+
+
+{% include "_bottom.html" %}

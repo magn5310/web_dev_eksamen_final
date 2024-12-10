@@ -1,0 +1,30 @@
+{% include "_top.html" %}
+
+<main class="w-full d-flex flex-wrap gap-4 p-4">
+    <h1>My Items</h1>
+    {% if items %}
+    {% for item in items %}
+    <div class="w-25% d-flex flex-col gap-2 border-1px border-c-gray:+50 rounded-8px p-2">
+        <img src="{{ url_for('static', filename='images/' + item.item_image) }}" alt="{{ item.item_title }}"
+            class="w-full h-auto rounded-8px">
+        <h3 class="text-150">{{ item.item_title }}</h3>
+        {% if item.item_description %}
+        <p>{{ item.item_description }}</p>
+        {% else %}
+        <p class="text-c-gray">No description available.</p>
+        {% endif %}
+        <p><strong>Price:</strong> ${{ item.item_price }}</p>
+        <!-- Include Edit and Delete buttons -->
+        <div class="d-flex gap-2">
+            <a href="{{ url_for('edit_item', item_pk=item.item_pk) }}" class="btn">Edit</a>
+            <button class="btn btn-danger"
+                mix-delete="{{ url_for('delete_item', item_pk=item.item_pk) }}">Delete</button>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p class="text-c-gray:+50 text-a-center w-full">You have no items.</p>
+    {% endif %}
+</main>
+
+{% include "_bottom.html" %}

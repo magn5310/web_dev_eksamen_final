@@ -1,0 +1,25 @@
+{% include "_top.html" %}
+
+<main class="w-full h-100vh d-flex p-items-center">
+    <form id="frm_delete_profile" class="w-50% d-flex flex-col gap-4 mx-auto">
+        <h1 class="text-a-center">Delete Profile</h1>
+
+        <p>Please enter your password to confirm the deletion of your profile.</p>
+
+
+        <div class="d-flex flex-col">
+            <label for="user_password">
+                <span>Password</span>
+            </label>
+            <input id="user_password" name="user_password" type="password" required
+                mix-check="{{ x.REGEX_USER_PASSWORD }}">
+        </div>
+
+        <button type="submit" class="btn btn-danger" mix-put="{{ url_for('delete_restaurant') }}"
+            mix-data="#frm_delete_profile">
+            Confirm Deletion
+        </button>
+    </form>
+</main>
+
+{% include "_bottom.html" %}

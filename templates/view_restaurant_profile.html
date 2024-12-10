@@ -1,0 +1,32 @@
+{% include "_top.html" %}
+
+<main class="w-full h-100vh d-flex p-items-center">
+    {% if user %}
+    <div class="profile-container w-50% mx-auto d-flex flex-col gap-4">
+        <h1 class="text-a-center">My Profile</h1>
+
+        <div class="profile-field d-flex">
+            <strong class="w-30%">Restaurant Name:</strong>
+            <span>{{ user.user_name }}</span>
+        </div>
+
+        <div class="profile-field d-flex">
+            <strong class="w-30%">Email Address:</strong>
+            <span>{{ user.user_email }}</span>
+        </div>
+
+        <!-- Include other profile fields as necessary -->
+
+        <div class="profile-actions d-flex gap-2 mt-4">
+            <a href="{{ url_for('view_edit_restaurant_profile') }}" class="btn">Edit Profile</a>
+            <a href="{{ url_for('confirm_delete_restaurant') }}" class="btn btn-danger">Delete Profile</a>
+
+        </div>
+
+    </div>
+    {% else %}
+    <div class="alert alert-danger">User not found</div>
+    {% endif %}
+</main>
+
+{% include "_bottom.html" %}

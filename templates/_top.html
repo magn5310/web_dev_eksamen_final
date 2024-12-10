@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='mixhtml.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/mojocss"></script>
+    <title>
+        {{ title or "Company" }}
+    </title>
+</head>
+<body class="w-full h-100vh text-c-gray:-16">
+<header class="px-5 border-b-1 border-c-gray:+16 p-sticky">
+    <nav class="d-flex my-2 j-content-between p-5">
+        <a href="{{ url_for('view_restaurants') }}" class="text-c-black text-w-bold text-xl my-auto">WWWolt</a>
+       <form method="get" action="{{ url_for('view_all') }}" class="d-flex gap-2">
+    <input type="search" name="search" placeholder="Search..." value="{{ search_query or '' }}">
+    <button type="submit">Search</button>
+</form>
+        {% if not user %}
+        <div class="d-flex gap-5">
+            <a href="{{ url_for('view_signup') }}" class="text-c-blue:+1 text-w-semibold text-lg bg-c-blue:+40 px-4 py-2 rounded-2">Register</a>
+            <a href="{{ url_for('view_login') }}" class="text-c-blue:+40 text-w-semibold text-lg bg-c-blue:+1 px-4 py-2 rounded-2">Login</a>
+            </div>
+
+        {% else %}
+         <div class="d-flex gap-5">
+            <div class="text-w-semibold text-lg bg-c-blue:+40 px-4 py-2 rounded-2 d-flex a-items-center"><a href="{{ url_for('view_login') }}" class="text-c-blue:+1">Logout</a></div>
+           
+            <form id="cart">{% include "__cart_button.html" %}</form>
+         </div>
+        {% endif %}
+    </nav>
+</header>
+    <div id="toast" class="d-flex flex-col j-content-center p-fixed w-full top-4 z-10 pointer-e-none"></div>
+
+
+    

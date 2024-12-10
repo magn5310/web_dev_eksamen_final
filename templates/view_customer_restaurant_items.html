@@ -1,0 +1,21 @@
+{% include "_top.html" %}
+
+<main class="w-full px-5">
+    <img src="{{ url_for('static', filename='dishes/' + restaurant_user.restaurant_info_restaurant_image) }}" class="w-full h-100 obj-f-cover" alt="">
+
+
+<h1>Restaurant: {{restaurant_user.restaurant_info_restaurant_name}}</h1>
+
+<ul class="d-grid gap-x-5 gap-y-15 cols-12 list-style-none mt-20 ">
+    {% for item in restaurant_items %}
+    <a href="/item/{{item.item_pk}}?image={{item.item_image}}" class="w-full h-40 col-3">
+        <img src="{{ url_for('static', filename='dishes/' + item.item_image) }}" class="w-full h-full obj-f-cover" alt="image of {{item.item_title}}">
+        <p> {{item.item_title}}</p>
+    </a>
+    
+    {% endfor %}
+</ul>
+</main>
+
+
+{% include "_bottom.html" %}

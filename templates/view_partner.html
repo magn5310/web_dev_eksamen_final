@@ -1,0 +1,30 @@
+{% include "_top_logged.html" %}
+
+<main>
+    <section id="user_section">
+        <div class="d-flex gap-10 pa-5 a-items-center">
+            <img src="{{url_for('static', filename='avatars/' + user.user_avatar)}}" alt="Profile picture" class="max-w-96 rounded-full">
+
+            <div>
+                <h2>Hi <span class="text-c-blue">{{user.user_name}} {{user.user_last_name}}</span></h2>
+                <p>
+                    See your account details, your profile picture and change them if needed
+                </p>
+
+            </div>
+        </div>
+        <div class="d-grid cols-2 gap-5 pa-5">
+
+            <p class="border-b-1 border-c-blue">{{user.user_name}}</p>
+            <p class="border-b-1 border-c-blue">{{user.user_last_name}}</p>
+            <p class="border-b-1 border-c-blue">{{user.user_email}}</p>
+            <p class="border-b-1 border-c-blue">Role: Partner</p>
+        </div>
+
+    </section>
+</main>
+</body>
+
+</html>
+
+{% include "_bottom.html" %}
