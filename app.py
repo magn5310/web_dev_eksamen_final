@@ -46,6 +46,19 @@ def view_test_get_redis():
     if not name: name = "no name"
     return name
 
+
+##############################
+@app.get("/")
+def view_index():
+    user = session.get("user")
+    cart = session.get("cart")
+    cart_count = len(cart) if cart else 0
+    cart_price = 0
+    if cart:
+        for item in cart:
+            cart_price += item["item_price"]
+    return render_template("view_index.html", user=user, cart_count=cart_count, cart_price=cart_price)
+
 ##############################
 @app.get("/restaurants")
 def view_restaurants():
@@ -961,19 +974,21 @@ def login():
         cursor.execute(q, (user_email,))
         rows = cursor.fetchall()
 
-        print("Number of rows found:", len(rows))
-        if rows:
-            print("Found user details:", rows[0])
-        else:
-            print("No user found with email:", user_email)
+        # print("Number of rows found:", len(rows))
+        # if rows:
+        #     print("Found user details:", rows[0])
+        # else:
+        #     print("No user found with email:", user_email)
+
+        print("Number of rows found:", len(rows)==0)
+        if not rows:
+            toast = render_template("___toast.html", message="user not registered")
+            return f"""<template mix-target="#toast">{toast}</template>""", 400 
 
         if not rows[0]["user_verified_at"]:
             toast = render_template("___toast.html", message="Please verify your account")
             return f"""<template mix-target="#toast">{toast}</template>""", 400     
-
-        if not rows:
-            toast = render_template("___toast.html", message="user not registered")
-            return f"""<template mix-target="#toast">{toast}</template>""", 400     
+            
         if not check_password_hash(rows[0]["user_password"], user_password):
             toast = render_template("___toast.html", message="invalid credentials")
             return f"""<template mix-target="#toast">{toast}</template>""", 401
