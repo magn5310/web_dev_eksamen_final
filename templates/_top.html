@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,31 +11,90 @@
         {{ title or "Company" }}
     </title>
 </head>
+
 <body class="w-full h-100vh text-c-gray:-16">
-<header class="px-5 border-b-1 border-c-gray:+16 p-sticky">
-    <nav class="d-flex my-2 j-content-between p-5">
-        <a href="{{ url_for('view_index') }}" class="text-c-black text-w-bold text-xl my-auto">WWWolt</a>
-       
-        {% if not user %}
-        <div class="d-flex gap-5">
-            <a href="{{ url_for('view_signup') }}" class="text-c-blue:+1 text-w-semibold text-lg bg-c-blue:+40 px-4 py-2 rounded-2">Register</a>
-            <a href="{{ url_for('view_login') }}" class="text-c-blue:+40 text-w-semibold text-lg bg-c-blue:+1 px-4 py-2 rounded-2">Login</a>
+    <header class="px-5 border-b-1 border-c-gray:+16 p-sticky z-90">
+        <nav class="d-none my-2 j-content-between p-5" md="d-flex">
+            <a href="{{ url_for('view_restaurants') }}" class="text-c-black text-w-bold text-xl my-auto">WWWolt</a>
+            <form method="get" action="{{url_for('view_all', search_query=search_query)}}" class="d-flex gap-2">
+                <input id="search" type="search" name="search" placeholder="Search..." value="{{ search_query or '' }}">
+                <button class="bg-c-black:+50 cursor-pointer text-c-white ts-200 ts-f-ease" hover="bg-c-black:+10">Search</button>
+            </form>
+            {% if not user %}
+            <div class="d-flex gap-5">
+                <a href="{{ url_for('view_signup') }}" class="text-c-blue:+1 text-w-semibold text-lg bg-c-blue:+40 px-4 py-2 rounded-2 ts-200 ts-f-ease" hover="bg-c-blue:+35">Register</a>
+                <a href="{{ url_for('view_login') }}" class="text-c-blue:+40 text-w-semibold text-lg bg-c-blue:+1 px-4 py-2 rounded-2 ts-200 ts-f-ease" hover="bg-c-blue:+5">Login</a>
             </div>
 
-        {% else %}
-        <form method="get" action="{{ url_for('view_all') }}" class="d-flex gap-2">
-    <input type="search" name="search" placeholder="Search..." value="{{ search_query or '' }}">
-    <button type="submit">Search</button>
-</form>
-         <div class="d-flex gap-5">
-            <div class="text-w-semibold text-lg bg-c-blue:+40 px-4 py-2 rounded-2 d-flex a-items-center"><a href="{{ url_for('view_login') }}" class="text-c-blue:+1">Logout</a></div>
-           
-            <form id="cart">{% include "__cart_button.html" %}</form>
-         </div>
-        {% endif %}
-    </nav>
-</header>
-    <div id="toast" class="d-flex flex-col j-content-center p-fixed w-full top-4 z-10 pointer-e-none"></div>
+            {% else %}
+            <div class="d-flex gap-5">
+                <a href="{{ url_for('view_customer') }}" class="text-c-blue:+1 text-w-semibold text-lg bg-c-blue:+40 rounded-full w-11 h-11 d-flex a-items-center j-content-center gap-2"><img class="w-10 h-10 rounded-full" src="{{url_for('static', filename="/avatars/"+user.user_avatar)}}" alt=""></a>
+                <form method="POST" action="{{url_for('logout')}}" id="logout" class="">
+                    <button class="text-c-blue:+1 text-w-semibold text-lg bg-c-blue:+40 px-4 py-2 rounded-2 d-flex a-items-center ts-200 ts-f-ease cursor-pointer" hover="bg-c-blue:+35">Logout</button>
+                </form>
 
+                <form id="cart">{% include "__cart_button.html" %}</form>
+            </div>
+            {% endif %}
+        </nav>
+        <nav class="d-flex my-2 j-content-between p-5" md="d-none">
+            <a href="{{ url_for('view_restaurants') }}" class="text-c-black text-w-bold text-xl my-auto">WWWolt</a>
+            <div class="d-flex flex-col gap-2" id="burger_toggle">
+                <div class="w-10 h-2 bg-c-blue:+1 rounded-4"></div>
+                <div class="w-10 h-2 bg-c-blue:+1 rounded-4"></div>
+                <div class="w-10 h-2 bg-c-blue:+1 rounded-4"></div>
+            </div>
+            <div class="d-none p-fixed pt-4 z-100 top-0 w-80  bg-c-white h-fullvh border-l-1 border-c-gray:+16 right--200 ts-f-ease-in" id="burger">
+                <div class="d-flex j-content-end px-5 my-2">
 
-    
+                    <div class="d-grid" id="burger_close">
+                        <div class="w-10 h-2 bg-c-blue:+1 rounded-4 rotate-135 translate-y-half"></div>
+                        <div class="w-10 h-2 bg-c-blue:+1 rounded-4 rotate-45 translate-y--50%"></div>
+                    </div>
+                </div>
+                <div class="d-grid j-content-center gap-10 a-content-between mt-10">
+
+                    <form method="get" action="{{url_for('view_all', search_query=search_query)}}" class="d-flex gap-2">
+                        <input id="search" type="search" name="search" placeholder="Search..." value="{{ search_query or '' }}">
+                        <button class="bg-c-black:+50 text-c-white">Search</button>
+                    </form>
+                    {% if not user %}
+                    <div class="d-grid w-full gap-3 text-a-center">
+                        <a href="{{ url_for('view_signup') }}" class="text-c-blue:+1 text-w-semibold text-lg bg-c-blue:+40 px-4 py-2 rounded-2">Register</a>
+                        <a href="{{ url_for('view_login') }}" class="text-c-blue:+40 text-w-semibold text-lg bg-c-blue:+1 px-4 py-2 rounded-2">Login</a>
+                    </div>
+
+                    {% else %}
+                    <div class="d-grid w-full gap-3 text-a-center">
+                        <a href="{{ url_for('view_customer') }}" class=" text-w-semibold text-lg rounded-full  d-flex a-items-center j-content-center gap-2">
+                            <img class="w-20 h-20 rounded-full" src="{{url_for('static', filename="/avatars/" +user.user_avatar)}}" alt="">
+                        </a>
+                        <form method="POST" action="{{url_for('logout')}}" id="logout" class="">
+                            <button class="text-c-blue:+1 text-w-semibold text-lg bg-c-blue:+40 px-4 py-2 rounded-2 d-flex a-items-center w-full cursor-pointer j-content-center">Logout</button>
+                        </form>
+
+                        <form id="cart">{% include "__cart_button_mobile.html" %}</form>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div id="toast" class="d-flex flex-col j-content-center p-fixed w-full top-4 z-100 pointer-e-none">
+    {% if message %}
+        {%include "___toast_success.html"%}
+    {% endif %}
+    </div>
+
+    <script>
+        document.querySelector("#burger_toggle").addEventListener("click", () => {
+            document.querySelector("#burger").classList.toggle("d-none")
+            document.querySelector("#burger").classList.toggle("right--200")
+            document.querySelector("#burger").classList.toggle("right-0")
+        })
+        document.querySelector("#burger_close").addEventListener("click", () => {
+            document.querySelector("#burger").classList.toggle("d-none")
+            document.querySelector("#burger").classList.toggle("right--200")
+            document.querySelector("#burger").classList.toggle("right-0")
+        })
+    </script>

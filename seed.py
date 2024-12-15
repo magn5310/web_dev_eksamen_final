@@ -73,7 +73,7 @@ try:
             item_title VARCHAR(50) NOT NULL,
             item_price DECIMAL(5,2) NOT NULL,
             item_description VARCHAR(500),
-            item_image VARCHAR(50),
+            item_image VARCHAR(255),
             item_blocked_at INTEGER UNSIGNED,
             PRIMARY KEY(item_pk),
             FOREIGN KEY (item_user_fk) REFERENCES users(user_pk) ON DELETE CASCADE ON UPDATE RESTRICT
@@ -125,7 +125,6 @@ try:
             restaurant_info_pk CHAR(36),
             restaurant_info_user_fk CHAR(36),
             restaurant_info_restaurant_name VARCHAR(50) NOT NULL,
-            restaurant_info_restaurant_address VARCHAR(100) NOT NULL,
             restaurant_info_longitude DECIMAL(10, 8) NOT NULL,
             restaurant_info_latitude DECIMAL(10, 8) NOT NULL,
             restaurant_info_restaurant_phone VARCHAR(50) NOT NULL,
@@ -171,6 +170,55 @@ try:
         "user_verification_key": str(uuid.uuid4())
     }
     insert_user_with_role(admin_user, x.ADMIN_ROLE_PK)
+
+    customer_user = {
+        "user_pk": str(uuid.uuid4()),
+        "user_name": "Customer",
+        "user_last_name": "User",
+        "user_email": "customer@fulldemo.com",
+        "user_password": generate_password_hash("password"),
+        "user_avatar": "profile_10.jpg",
+        "user_created_at": int(time.time()),
+        "user_deleted_at": 0,
+        "user_blocked_at": 0,
+        "user_updated_at": 0,
+        "user_verified_at": int(time.time()),
+        "user_verification_key": str(uuid.uuid4())
+    }
+    insert_user_with_role(customer_user, x.CUSTOMER_ROLE_PK)
+    
+    partner_user = {
+        "user_pk": "542dbb52-17c1-4685-abe7-bebb9d8da70a",
+        "user_name": "Partner",
+        "user_last_name": "User",
+        "user_email": "partner@fulldemo.com",
+        "user_password": generate_password_hash("password"),
+        "user_avatar": "profile_10.jpg",
+        "user_created_at": int(time.time()),
+        "user_deleted_at": 0,
+        "user_blocked_at": 0,
+        "user_updated_at": 0,
+        "user_verified_at": int(time.time()),
+        "user_verification_key": str(uuid.uuid4())
+    }
+    insert_user_with_role(partner_user, x.PARTNER_ROLE_PK)
+
+    restaurant_user = {
+        "user_pk": str(uuid.uuid4()),
+        "user_name": "Restaurant",
+        "user_last_name": "User",
+        "user_email": "restaurant@fulldemo.com",
+        "user_password": generate_password_hash("password"),
+        "user_avatar": "profile_10.jpg",
+        "user_created_at": int(time.time()),
+        "user_deleted_at": 0,
+        "user_blocked_at": 0,
+        "user_updated_at": 0,
+        "user_verified_at": int(time.time()),
+        "user_verification_key": str(uuid.uuid4())
+    }
+    insert_user_with_role(restaurant_user, x.RESTAURANT_ROLE_PK)
+
 
     ##############################
     # Insert 50 customers
@@ -241,14 +289,30 @@ try:
             ))
     
      ##############################
+
+        SUSHI_CATEGORY_PK = "16bfbe4a-16c1-4cb0-a7b2-090729f78c38"
+        PASTA_CATEGORY_PK = "f43b1f39-27f5-4edc-a859-39c2c1ea5ac3"
+        BURGER_CATEGORY_PK = "32c83790-34f5-4b86-9bf3-5bffdaa14285"
+        PIZZA_CATEGORY_PK = "ba9762b0-793f-417f-a5eb-b46ab53d1eb5"
+        SALAD_CATEGORY_PK = "2688be80-6ead-40af-8a36-366607ec0348"
+
+        category_map = {
+            "SUSHI": SUSHI_CATEGORY_PK,
+            "PASTA": PASTA_CATEGORY_PK,
+            "BURGER": BURGER_CATEGORY_PK,
+            "PIZZA": PIZZA_CATEGORY_PK,
+            "SALAD": SALAD_CATEGORY_PK
+        }
     # Create food categories
     categories = ["Pizza", "Pasta", "Sushi", "Burger", "Salad"]
     for category in categories:
+
+        category_pk_variable = category_map[category.upper()]
         cursor.execute("""
         INSERT INTO food_categories (
             food_category_pk, food_category_name)
             VALUES (%s, %s)
-        """, (str(uuid.uuid4()), category))
+        """, (category_pk_variable, category))
     
     ##############################
     
@@ -276,9 +340,9 @@ try:
     for restaurant_user in restaurant_users:
         cursor.execute("""
         INSERT INTO restaurant_info (
-            restaurant_info_pk, restaurant_info_user_fk, restaurant_info_restaurant_name, restaurant_info_restaurant_address, restaurant_info_longitude, restaurant_info_latitude, restaurant_info_restaurant_phone, restaurant_info_restaurant_image, restaurant_info_created_at, restaurant_info_updated_at)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-        """, (str(uuid.uuid4()), restaurant_user["user_pk"], fake.company(), fake.address(), random.uniform(*copenhagen_long_range), random.uniform(*copenhagen_lat_range), fake.phone_number(),f"dish_{random.randint(1, 100)}.jpg", int(time.time()), 0))
+            restaurant_info_pk, restaurant_info_user_fk, restaurant_info_restaurant_name, restaurant_info_longitude, restaurant_info_latitude, restaurant_info_restaurant_phone, restaurant_info_restaurant_image, restaurant_info_created_at, restaurant_info_updated_at)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+        """, (str(uuid.uuid4()), restaurant_user["user_pk"], fake.company(), random.uniform(*copenhagen_long_range), random.uniform(*copenhagen_lat_range), fake.phone_number(),f"dish_{random.randint(1, 100)}.jpg", int(time.time()), 0))
 
 
 

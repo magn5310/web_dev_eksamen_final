@@ -5,10 +5,18 @@
     {% if items %}
     {% for item in items %}
     <div class="w-25% d-flex flex-col gap-2 border-1px border-c-gray:+50 rounded-8px p-2">
-        <img src="{{ url_for('static', filename='images/' + item.item_image) }}" alt="{{ item.item_title }}">
+
+        {% set images = item.item_image.split(',') if item.item_image else [] %}
+        {% if images %}
+        {% for img_filename in images %}
+        <img src="{{ url_for('static', filename='images/' + img_filename) }}" alt="{{ item.item_title }}"
+            class="w-full h-auto rounded-8px mb-2">
+        {% endfor %}
+        {% else %}
+        <p class="text-c-gray">No images available.</p>
+        {% endif %}
 
         <h3 class="text-150">{{ item.item_title }}</h3>
-
 
         {% if item.item_description %}
         <p>{{ item.item_description }}</p>
@@ -26,4 +34,4 @@
 
 </main>
 
-{% include "_bottom.html" %}
+{% include "_footer.html" %}

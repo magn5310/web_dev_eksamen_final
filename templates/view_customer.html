@@ -1,13 +1,15 @@
-{% include "_top_logged.html" %}
+{% include "_top.html" %}
 
+<main>
+    
+    {% include "_user_info.html" %}
+    <div class="d-flex flex-wrap gap-2 ml-5 mb-5">
+        <a href="/verify-partner" class="text-c-blue:+40 text-w-semibold text-lg bg-c-blue:+1 w-full px-4 py-2 rounded-2 w-fit-content">Become a partner</a>
+        <a href="/create-resturant" class="text-c-blue:+1 text-w-semibold text-lg bg-c-blue:+40 px-4 py-2 rounded-2 w-fit-content">Become a resturant</a>
+        <a href="/edit-profile" class="text-c-white:+1 text-w-semibold text-lg bg-c-gray px-4 py-2 rounded-2 w-fit-content">Edit profile</a>
+        <a href="/profile/delete" class="text-c-white text-w-semibold text-lg bg-c-red:+1 px-4 py-2 rounded-2 w-fit-content">Delete profile</a>
+    </div>
+    
+</main>
 
-{{ user }}
-
-<a href="/verify-partner">Become a partner</a>
-<a href="">Become a resturant</a>
-
-</body>
-
-</html>
-
-{% include "_bottom.html" %}
+{% include "_footer.html" %}

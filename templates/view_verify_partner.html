@@ -1,16 +1,16 @@
-{% include "_top_logged.html" %}
+
 {% include "_top.html" %}
 
-<form action="" class="d-flex flex-col" id="verify_partner">
+<form action="" class="d-flex max-w-75% ma-auto min-h-fullvh mt-20 flex-col" md="max-w-half" id="verify_partner">
 
     <p>Hi {{ user.user_name }} {{ user.user_last_name }}</p>
     <p>Please enter yours password to confirm that you want to be a partner</p>
 
     <label for=" user_password">Password</label>
-    <input id="user_password" type="text" name="user_password">
+    <input id="user_password" type="password" name="user_password">
 
-    <button mix-post="/partner-verification/{{user.user_pk}}" mix-data="#verify_partner">Submit</button>
+    <button mix-post="/partner-verification/{{user.user_pk}}" class="mt-5 cursor-pointer" mix-data="#verify_partner">Submit</button>
 
 </form>
 
-{% include "_bottom.html" %}
+{% include "_footer.html" %}

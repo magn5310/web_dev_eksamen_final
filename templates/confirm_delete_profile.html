@@ -15,11 +15,11 @@
                 mix-check="{{ x.REGEX_USER_PASSWORD }}">
         </div>
 
-        <button type="submit" class="btn btn-danger" mix-put="{{ url_for('delete_restaurant') }}"
+        <button type="submit" class="cursor-pointer ts-200 ts-f-ease" hover="bg-c-red text-c-white" mix-put="{{ url_for('delete_restaurant') }}"
             mix-data="#frm_delete_profile">
             Confirm Deletion
         </button>
     </form>
 </main>
 
-{% include "_bottom.html" %}
+{% include "_footer.html" %}

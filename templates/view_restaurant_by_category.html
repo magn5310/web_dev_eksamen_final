@@ -4,18 +4,22 @@
 
 
 
-<h1>{{food_category.food_category_name}}</h1>
+<h1 class="mt-10">{{food_category.food_category_name}}</h1>
 
-<ul class="d-grid gap-x-5 gap-y-15 cols-12 list-style-none mt-20 ">
+<ul class="d-grid gap-x-5 gap-y-15 cols-3 list-style-none mt-10 ">
     {% for restaurant in restaurants %}
-    <a href="/{{restaurant.restaurant_info_user_fk}}/items" class="w-full h-40 col-3">
-        <img src="{{ url_for('static', filename='dishes/'+ restaurant.restaurant_info_restaurant_image) }}" class="w-full h-full obj-f-cover" alt="image of {{restaurant.restaurant_info_restaurant_name}}">
-        <p> {{restaurant.restaurant_info_restaurant_name}}</p>
-    </a>
+    <a href="/{{restaurant.restaurant_info_user_fk}}/items" class="w-full h-full">
+                    <div class="shadow-xs w-full h-full rounded-2 ts-200" hover="shadow-md scale-102">
+                        <img src="{{ url_for('static', filename='dishes/'+restaurant.restaurant_info_restaurant_image) }}"
+                            class="w-full h-40 obj-f-cover rounded-2" alt="">
+                        <p class="text-c-black pa-2">{{restaurant.restaurant_info_restaurant_name}}</p>
+                    </div>
+                </a>
     
     {% endfor %}
 </ul>
 </main>
 
 
-{% include "_bottom.html" %}
+{% include "_footer.html" %}
+

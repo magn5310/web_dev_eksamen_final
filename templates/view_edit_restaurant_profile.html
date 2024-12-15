@@ -43,23 +43,23 @@
         </div>
 
         <div class="d-flex flex-col">
-            <label for="new_password">
+            <label for="new_user_password">
                 <span>New Password</span>
             </label>
-            <input name="new_password" type="password" mix-check="{{ x.PASSWORD_REGEX }}"">
+            <input name="new_user_password" type="password" mix-check="{{ x.PASSWORD_REGEX }}"">
         </div>
 
         <div class=" d-flex flex-col">
-            <label for="confirm_password">
+            <label for="user_confirm_new_password">
                 <span>Confirm New Password</span>
             </label>
-            <input name="confirm_password" type="password" mix-check="{{ x.PASSWORD_REGEX }}"">
+            <input name="user_confirm_new_password" type="password" mix-check="{{ x.PASSWORD_REGEX }}"">
         </div>
 
-        <button mix-put=" {{ url_for('update_profile', user_pk=user.user_pk) }}" mix-data="#frm_edit_profile">
+        <button mix-put="{{ url_for('update_profile', user_pk=user.user_pk) }}" class="cursor-pointer" mix-data="#frm_edit_profile">
             Update Profile
             </button>
     </form>
 </main>
 
-{% include "_bottom.html" %}
+{% include "_footer.html" %}

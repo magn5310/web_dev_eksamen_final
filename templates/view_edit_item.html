@@ -31,7 +31,7 @@
                 <span class="ml-auto text-c-gray:+25">{{ x.ITEM_DESCRIPTION_MIN }} to {{ x.ITEM_DESCRIPTION_MAX }}
                     chars</span>
             </label>
-            <textarea name="item_description" rows="4"
+            <textarea class="border-1 border-c-gray:+25 rounded-sm" name="item_description" rows="4"
                 mix-check="{{ x.ITEM_DESCRIPTION_REGEX }}">{{ item.item_description }}</textarea>
         </div>
 
@@ -54,7 +54,7 @@
                 class="w-25% h-auto rounded-8px">
         </div>
 
-        <button mix-put="{{ url_for('update_item', item_pk=item.item_pk) }}" mix-data="#frm_edit_item">
+        <button mix-put="{{ url_for('update_item', item_pk=item.item_pk) }}" class="cursor-pointer" mix-data="#frm_edit_item">
             Update Item
         </button>
 
@@ -62,4 +62,4 @@
 
 </main>
 
-{% include "_bottom.html" %}
+{% include "_footer.html" %}

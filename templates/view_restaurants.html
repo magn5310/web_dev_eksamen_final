@@ -12,10 +12,10 @@
     
         <h2>Categories</h2>
     
-        <ul class="d-flex gap-x-5 list-style-none mb-20">
+        <ul class="d-grid gap-5 cols-2 list-style-none mb-40" sm="cols-5" >
             {% for category in food_categories %}
     
-            <a href="/restaurant/{{category.food_category_pk}}" class="w-full h-40">
+            <a href="/restaurant/{{category.food_category_pk}}" class="w-30" lg="w-50 h-30">
                 <div class="d-grid h-40 rows-1 cols-1 j-content-center p-relative rounded-5 ts-200"
                     hover="shadow-md scale-102">
                     <img src="{{ url_for('static', filename='categories/' + category.food_category_name + '.webp') }}"
@@ -23,7 +23,7 @@
                         alt="image of {{category.food_category_name}}">
                     <div class="h-40 w-full p-absolute bg-c-black bg-alpha-40 z-50 rounded-5"></div>
                     <p
-                        class="c-start-1 c-end-1 r-start-1 r-end-1 j-self-center a-self-center text-c-white text-w-black z-100 text-xl">
+                        class="c-start-1 c-end-1 r-start-1 r-end-1 j-self-center a-self-center text-c-white text-w-black z-80 text-xl">
                         {{category.food_category_name}}</p>
                 </div>
             </a>
@@ -33,15 +33,15 @@
         </ul>
         <h2>Restaurants</h2>
     
-        <ul class="d-grid cols-12 gap-x-5 gap-y-15 list-style-none mb-20">
+        <ul class="d-grid cols-2 gap-x-5 gap-y-15 list-style-none mb-20" md="cols-3">
             {% for restaurant in restaurant_users %}
-            <a href="/{{restaurant.restaurant_info_user_fk}}/items" class="w-full h-full col-4">
-                <div class="shadow-xs w-full h-full rounded-2 ts-200" hover="shadow-md scale-102">
-                    <img src="{{ url_for('static', filename='dishes/'+restaurant.restaurant_info_restaurant_image) }}"
-                        class="w-full h-40 obj-f-cover rounded-2" alt="">
-                    <p>{{restaurant.restaurant_info_restaurant_name}}</p>
-                </div>
-            </a>
+            <a href="/{{restaurant.restaurant_info_user_fk}}/items" class="w-full h-full">
+                    <div class="shadow-xs w-full h-full rounded-2 ts-200" hover="shadow-md scale-102">
+                        <img src="{{ url_for('static', filename='dishes/'+restaurant.restaurant_info_restaurant_image) }}"
+                            class="w-full h-40 obj-f-cover rounded-2" alt="">
+                        <p class="text-c-black pa-2">{{restaurant.restaurant_info_restaurant_name}}</p>
+                    </div>
+                </a>
             {% endfor %}
         </ul>
 </section>

@@ -1,21 +1,52 @@
 {% include "_top.html" %}
 
-<main class="w-full px-5">
-<div class="d-grid cols-2">
-    <img src="{{ url_for('static', filename='dishes/' + dish_item.item_image) }}" class="w-full h-100 obj-f-cover" alt="">
-    <div class="d-grid j-content-center a-items-end">
-        <div>
-            <h1>{{dish_item.item_title}}</h1>
-            <h3>${{dish_item.item_price}}</h3>
+<main class="w-full px-5 flex justify-center items-center min-h-fullvh">
+    <!-- Product Card Container -->
+    <div class="card d-grid cols-1 w-full max-w-2xl rounded-4 shadow-lg shadow-c-black:+80 overflow-hidden mt-10 pa-2 gap-4" md="cols-2">
+        <!-- Image Section -->
+        <div class="w-full h-100">
+            <img 
+                src="{{ url_for('static', filename='dishes/' + dish_item.item_image) }}" 
+                class="w-full h-full rounded-3 obj-f-cover" 
+                alt="{{ dish_item.item_title }}">
         </div>
-        {% if user %}
-      <button class="cursor-pointer bg-c-blue:+1 pa-2 rounded-3 text-c-blue:+40 text-w-semibold" mix-post="/set-item-cookie/{{dish_item.item_pk}}" mix-data="#cart">BUY</button>
-        {% else %}
-        <a href="/login" class="cursor-pointer bg-c-blue:+1 pa-2 rounded-3 text-c-blue:+40 text-w-semibold">Login to buy</a>
-        {% endif %}
+        
+        <!-- Details Section -->
+        <div class=" d-flex flex-col j-content-end">
+            <!-- Product Title and Price -->
+
+                <h1 class="text-200 text-w-black mb-3">{{ dish_item.item_title }}</h1>
+                <div>
+                    {% if dish_item.item_description %}
+                    <p class="text-150 text-c-gray:+30">{{ dish_item.item_description }}</p>
+                    {% endif %}
+                    <h3 class="text-150 text-w-semibold text-c-gray:+30">${{ dish_item.item_price }}</h3>
+
+            <!-- Call-to-Action -->
+            <div>
+                {% if user %}
+                    <button 
+                        class="w-full cursor-pointer bg-c-blue:+1 rounded-3 text-c-white text-w-semibold"
+                        mix-post="/set-item-cookie/{{dish_item.item_pk}}"
+                        mix-data="#cart"
+                    >
+                        Add to Cart
+                    </button>
+                </div>
+
+                {% else %}
+                    <a  
+                        class="w-full d-block text-a-center text-100 pa-2 cursor-pointer bg-c-blue:+1 rounded-3 text-c-white text-w-semibold"
+                        href="/login"
+                    >
+                        Login to Buy
+                    </a>
+                </div>
+
+                {% endif %}
+            </div>
+        </div>
     </div>
-</div>
 </main>
 
-
-{% include "_bottom.html" %}
+{% include "_footer.html" %}

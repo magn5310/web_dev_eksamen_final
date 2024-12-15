@@ -1,0 +1,46 @@
+{% include "_top.html" %}
+
+<main>
+    <form id="new_resturant" class="d-grid p-content-center pa-10 ma-10">
+        <div class="d-grid min-w-96 w-full">
+            <label for="rest_name">Resturant name</label>
+            <input type="text" id="rest_name" name="resturant_name" mix-check="{{x.RESTURANT_NAME_REGEX}}">
+        </div>
+
+        <div class="d-grid">
+            <div class="d-flex a-items-center gap-1">
+                <input type="checkbox" id="burger" name="food_category" value="burger">
+                <label for="burger">Burger</label>
+            </div>
+
+            <div class="d-flex a-items-center gap-1">
+                <input type="checkbox" id="pasta" name="food_category" value="pasta">
+                <label for="pasta">Pasta</label>
+            </div>
+
+            <div class="d-flex a-items-center gap-1">
+                <input type="checkbox" id="pizza" name="food_category" value="pizza">
+                <label for="pizza">Pizza</label>
+            </div>
+
+            <div class="d-flex a-items-center gap-1">
+                <input type="checkbox" id="salad" name="food_category" value="salad">
+                <label for="salad">Salad</label>
+            </div>
+
+            <div class="d-flex a-items-center gap-1">
+                <input type="checkbox" id="sushi" name="food_category" value="sushi">
+                <label for="sushi">Sushi</label>
+            </div>
+        </div>
+
+        <div class="d-grid">
+            <label for="resturant_numb">Resturant phone number</label>
+            <input type="text" name="resturant_number" id="resturant_numb" mix-check="{{x.DANISH_PHONE_REGEX}}">
+        </div>
+
+        <button mix-post="/resturants" class="cursor-pointer" mix-data="#new_resturant">Create resturant</button>
+    </form>
+</main>
+
+{% include "_footer.html" %}

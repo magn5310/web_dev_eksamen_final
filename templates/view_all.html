@@ -1,19 +1,44 @@
 {% include "_top.html" %}
+<main class="mx-10">
 {% if restaurants %}
-<h2>Restaurants</h2>
-{% for restaurant in restaurants %}
-    <p>{{restaurant.restaurant_info_restaurant_name}}</p>
-{% endfor %}
-{% endif %}
 
-{% if items %}
-<h2>Dishes</h2>
-{% for item in items %}
-    <p>{{item.item_title}}</p>
-{% endfor %}
-{% endif %}
+     
+    <h2 class="mt-10">Restaurants</h2>
+    <ul class="d-grid cols-3 gap-x-5 gap-y-15 list-style-none mb-20">
+    {% for restaurant in restaurants %}
+    <a href="/{{restaurant.restaurant_info_user_fk}}/items" class="w-full h-full">
+                    <div class="shadow-xs w-full h-full rounded-2 ts-200" hover="shadow-md scale-102">
+                        <img src="{{ url_for('static', filename='dishes/'+restaurant.restaurant_info_restaurant_image) }}"
+                            class="w-full h-40 obj-f-cover rounded-2" alt="">
+                        <p class="text-c-black pa-2">{{restaurant.restaurant_info_restaurant_name}}</p>
+                    </div>
+                </a>
+    {% endfor %}
+    </ul>
 
-{% if not restaurants and not items %}
-    <p>No results found</p>
-{% endif %}
+    {% endif %}
+    
+    {% if items %}
+    <h2>Dishes</h2>
+    <ul class="d-grid gap-x-5 gap-y-15 cols-2 list-style-none mt-5" md="cols-4">
+    {% for item in items %}
+        <a href="/item/{{item.item_pk}}?image={{item.item_image}}" class="w-full h-full">
+                    <div class="shadow-sm w-full h-full rounded-2 ts-200 d-flex j-content-between a-items-end pa-2" hover="shadow-md scale-102">
+                       
+                        <div>
+                            <p class="text-c-black">{{item.item_title}}</p>
+                            <p class="text-c-black">${{item.item_price}}</p>
+                        </div>
+                         <img src="{{ url_for('static', filename='dishes/' + item.item_image) }}"
+                            class="w-20 h-25 obj-f-cover rounded-2" sm="w-25" alt="">
+                    </div>
+                </a>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    
+    {% if not restaurants and not items %}
+        <p>No results found</p>
+    {% endif %}
+</main>
 {% include "_bottom.html" %}

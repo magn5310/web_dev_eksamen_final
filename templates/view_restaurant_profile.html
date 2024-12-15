@@ -1,32 +1,45 @@
 {% include "_top.html" %}
 
-<main class="w-full h-100vh d-flex p-items-center">
+<main class="w-full p-items-center">
     {% if user %}
-    <div class="profile-container w-50% mx-auto d-flex flex-col gap-4">
-        <h1 class="text-a-center">My Profile</h1>
 
-        <div class="profile-field d-flex">
-            <strong class="w-30%">Restaurant Name:</strong>
-            <span>{{ user.user_name }}</span>
+
+
+    {% include "_user_info.html" %}
+
+
+    <section id="restaurant_section" class="w-full">
+        <div class="d-flex flex-col gap-10 pa-5 a-items-center" md="flex-row">
+            <img src="{{url_for('static', filename='dishes/' + restaurant_info.restaurant_info_restaurant_image)}}" alt="Profile picture" class="w-96 h-96 rounded-full">
+
+            <div>
+                <h2>Restaurant info</h2>
+                <p>
+                    See your restaurant details for <span class="text-c-blue">{{restaurant_info.restaurant_info_restaurant_name}}</span>
+                </p>
+
+            </div>
+        </div>
+        <div class="d-grid gap-5 pa-5" sm="cols-2">
+
+            <p class="border-b-1 border-c-blue">{{restaurant_info.restaurant_info_restaurant_name}}</p>
+            <p class="border-b-1 border-c-blue">+45 {{restaurant_info.restaurant_info_restaurant_phone}}</p>
         </div>
 
-        <div class="profile-field d-flex">
-            <strong class="w-30%">Email Address:</strong>
-            <span>{{ user.user_email }}</span>
-        </div>
+    </section>
 
-        <!-- Include other profile fields as necessary -->
-
-        <div class="profile-actions d-flex gap-2 mt-4">
-            <a href="{{ url_for('view_edit_restaurant_profile') }}" class="btn">Edit Profile</a>
-            <a href="{{ url_for('confirm_delete_restaurant') }}" class="btn btn-danger">Delete Profile</a>
-
-        </div>
+    <div class="d-flex flex-wrap gap-2 my-5 ml-5">
+        <a href="{{url_for('view_new_item')}}" class="text-c-white text-w-semibold text-lg bg-c-blue:+1 w-full px-4 py-2 rounded-2 w-fit-content">Add new item</a>
+        <a href="{{url_for('view_restaurant_items')}}" class="text-c-white text-w-semibold text-lg bg-c-blue:+1 w-full px-4 py-2 rounded-2 w-fit-content">View all your items</a>
+        <a href="{{ url_for('view_edit_restaurant_profile') }}" class="text-c-white text-w-semibold text-lg bg-c-gray w-full px-4 py-2 rounded-2 w-fit-content">Edit Profile</a>
+        <a href="{{ url_for('confirm_delete_restaurant') }}" class="text-c-white text-w-semibold text-lg bg-c-red:+1 w-full px-4 py-2 rounded-2 w-fit-content">Delete Profile</a>
 
     </div>
+
+
     {% else %}
     <div class="alert alert-danger">User not found</div>
     {% endif %}
 </main>
 
-{% include "_bottom.html" %}
+{% include "_footer.html" %}

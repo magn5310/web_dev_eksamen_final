@@ -1,13 +1,13 @@
-{% include "_top_logged.html" %}
+{% include "_top.html" %}
 
 
 <section class="d-flex flex-col gap-10 pa-10">
 
-    <a href="{{url_for('view_admin')}}">Back to profile</a>
+    <a class="text-c-white pa-5 rounded-sm bg-c-blue w-fit-content" href="{{url_for('view_admin')}}">Back to profile</a>
 
     <form method="get" class="d-flex gap-5 mb-10">
         <input type="search" name="search" placeholder="Search users..." class="form-control flex-grow" value="{{ search_query or '' }}">
-        <button type="submit" class="btn btn-primary">Search</button>
+        <button class="bg-c-black:+50 cursor-pointer text-c-white ts-200 ts-f-ease" hover="bg-c-black:+10">Search</button>
         <a class="pt-3 pb-3 pl-4 pr-4 bg-c-red:+1 text-c-white rounded-4" href="{{ url_for('view_admin') }}" class="btn btn-secondary">
             Reset
         </a>
@@ -48,4 +48,4 @@
 
 
 
-{% include "_bottom.html" %}
+{% include "_footer.html" %}

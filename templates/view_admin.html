@@ -1,8 +1,15 @@
-{% include "_top_logged.html" %}
+{% include "_top.html" %}
+
+{% include "_user_info.html" %}
 
 
-<a href="{{url_for('view_admin_users')}}">See all users</a>
-<a href="{{url_for('view_admin_items')}}">See all items</a>
+<div class="d-flex flex-wrap w-fit-content gap-2 ma-auto" md="ma-5">
 
 
-{% include "_bottom.html" %}
+    <a class="text-c-white pa-5 rounded-sm bg-c-blue:+1 w-fit-content" href="/admin/users">See all users</a>
+    <a class="text-c-white pa-5 rounded-sm bg-c-blue:+1 w-fit-content" href="/admin/items">See all items</a>
+    <a class="text-c-white pa-5 rounded-sm bg-c-gray w-fit-content" href="/edit-profile">Edit profile</a>
+    <a class="text-c-white pa-5 rounded-sm bg-c-red:+1 w-fit-content" href="/profile/delete">Delete profile</a>
+</div>
+
+{% include "_footer.html" %}
